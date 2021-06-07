@@ -1,0 +1,67 @@
+<configuration debug="true" scan="false">
+	<appender name="CONSOLE"
+		class="ch.qos.logback.core.ConsoleAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>INFO</level>
+		</filter>
+		<encoder>
+			<pattern><![CDATA[%d{dd-MM-yyyy HH:mm:ss} %boldBlue(CSL) : %highlight(%-5level) %logger.%M:%L - %msg%n%rEx{full,
+				com.sun.proxy,
+				java.lang.reflect,
+				java.net,
+				java.util.concurrent,
+				org.apache.catalina,
+				org.springframework.aop,
+				org.springframework.cglib,
+				org.springframework.security,
+				org.springframework.transaction,
+				org.springframework.web,
+				sun.net,
+				sun.reflect,
+				BySpringCGLIB
+			}]]></pattern>
+		</encoder>
+	</appender>
+
+	<appender name="APPLICATION_LOG_FILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>ERROR</level>
+		</filter>
+		<file>${app.log.dir:-log}/ocr-redaction-api-application.log</file>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${app.log.dir:-log}/ocr-redaction-api-application-%d{yyyyMMddHH}.log
+			</fileNamePattern>
+			<maxHistory>15</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern><![CDATA[%d{dd-MM-yyyy HH:mm:ss} [%thread] %-5level %logger.%M:%L - %msg%n]]></pattern>
+		</encoder>
+	</appender>
+
+	<appender name="MONITORING_LOG_FILE"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+			<level>WARN</level>
+		</filter>
+		<file>${app.log.dir:-log}/ocr-redaction-api-monitoring.log</file>
+		<rollingPolicy
+			class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${app.log.dir:-log}/ocr-redaction-api-monitoring-%d{yyyyMMdd}.log
+			</fileNamePattern>
+			<maxHistory>15</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<charset>UTF-8</charset>
+			<pattern><![CDATA[%d{dd-MM-yyyy HH:mm:ss} [%thread] %-5level %logger.%M:%L - %msg%n]]></pattern>
+		</encoder>
+	</appender>
+
+	<!-- We will only show errors, unless we indicate otherwise on -D level. -->
+	<root level="${docs.api.logging.level:-INFO}">
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="APPLICATION_LOG_FILE" />
+	</root>
+</configuration>
