@@ -1,4 +1,4 @@
-**[ocr-redaction-api] is a PDF/IMG (PNG,TIFF,JPEG) ocr-reading/editing rest API **, it uses [iText 7] PDF Sweep and its powered by Tess4j OCR Engine.
+**[ocr-redaction-api] is a PDF/IMG (PNG,TIFF,JPEG) ocr-reading/editing rest API**, it uses [iText 7] PDF Sweep and its powered by Tess4j OCR Engine.
 You will need to have the native tesseract libraries installed to run the OCR extraction part properly, 
 make sure you look arround Tesseract windows/linux/mac and follow instructions on [how to install][how-tesseract]
 
